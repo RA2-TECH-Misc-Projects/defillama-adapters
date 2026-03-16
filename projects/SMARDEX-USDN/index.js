@@ -7,7 +7,7 @@ const REBALANCER_ADDRESS = "0xaebcc85a5594e687f6b302405e6e92d616826e03";
 async function fetchUSDNData(api) {
 
   const balanceVault = await api.call({ target: USDN_PROTOCOL_ADDRESS, abi: "uint256:getBalanceVault", });
-  const balanceLong = await api.call({ target: USDN_PROTOCOL_ADDRESS, abi: "uint256:getBalanceLong", });
+  const totalExpo = await api.call({ target: USDN_PROTOCOL_ADDRESS, abi: "uint256:getTotalExpo", });
   const rebalancerCurrentStateData = await api.call({
     target: REBALANCER_ADDRESS,
     abi: "function getCurrentStateData() view returns (uint128 pendingAssets_, uint256 maxLeverage_, (int24 tick, uint256 tickVersion, uint256 index) currentPosId_)",
@@ -15,7 +15,7 @@ async function fetchUSDNData(api) {
 
   return {
     getBalanceVault: balanceVault,
-    getBalanceLong: balanceLong,
+    getTotalExpo: totalExpo,
     rebalancerPendingAssets: rebalancerCurrentStateData.pendingAssets_,
   };
 }
